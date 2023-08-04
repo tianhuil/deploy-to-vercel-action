@@ -59,6 +59,9 @@ const init = () => {
         }`,
         `githubCommitOrg=${USER}`,
         `githubCommitRepo=${REPOSITORY}`,
+        // We use the BRANCH here to allow Vercel to use the correct environment variables in each case.
+        // For example, if we wanted Vercel to match a variable to the "canary" environment, using `REF`
+        // would send "refs/heads/canary" as the value instead of "canary" (and only the latter would match the configuration)
         `githubCommitRef=${BRANCH}`,
         `githubCommitSha=${SHA}`,
         `githubOrg=${USER}`,
