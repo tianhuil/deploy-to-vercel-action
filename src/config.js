@@ -177,6 +177,7 @@ const usePerBranchConfig = () => {
       core.info(`No config found for branch ${context.BRANCH}`);
     }
 
+    core.info(branchEntry);
     context.ALIAS_DOMAINS = branchEntry.aliases;
     context.PRODUCTION = branchEntry.production === "true";
   }
