@@ -86,7 +86,7 @@ inputs:
   PER_BRANCH_CONFIG:
     description: |
       A dictionary of aliases to be assigned to the deployment, passed as a JSON string.
-      Will set the 
+      Will set the ALIAS_DOMAINS and PRODUCTION configurations on a per-branch basis.
       Should be in the format of {"${BRANCH}": {"aliases": [...], "production": false } }.
     required: false
 

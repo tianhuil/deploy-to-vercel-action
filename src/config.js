@@ -106,7 +106,6 @@ const context = {
   // https://github.com/argoproj/argo-workflows/issues/2077
   PER_BRANCH_CONFIG: parser.getInput({
     key: "PER_BRANCH_CONFIG",
-    type: "string",
   }),
 };
 
@@ -166,7 +165,7 @@ const parseJsonAliasesDict = () => {
 const usePerBranchConfig = () => {
   if (context.PER_BRANCH_CONFIG) {
     /**
-     * @typedef {{aliases: string[], production: string}} BranchEntry
+     * @typedef {{aliases: string[], production: boolean}} BranchEntry
      */
     /** @type Object.<string, BranchEntry> */
     const dict = parseJsonAliasesDict();
@@ -179,7 +178,7 @@ const usePerBranchConfig = () => {
 
     core.info(branchEntry);
     context.ALIAS_DOMAINS = branchEntry.aliases;
-    context.PRODUCTION = branchEntry.production === "true";
+    context.PRODUCTION = branchEntry.production;
   }
   context.ALIAS_DOMAINS;
 };
