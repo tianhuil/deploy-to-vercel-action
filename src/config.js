@@ -166,7 +166,7 @@ const parseJsonAliasesDict = () => {
 const usePerBranchConfig = () => {
   if (context.PER_BRANCH_CONFIG) {
     /**
-     * @typedef {{aliases: string[], production: boolean}} BranchEntry
+     * @typedef {{aliases: string[], production: string}} BranchEntry
      */
     /** @type Object.<string, BranchEntry> */
     const dict = parseJsonAliasesDict();
@@ -178,7 +178,7 @@ const usePerBranchConfig = () => {
     }
 
     context.ALIAS_DOMAINS = branchEntry.aliases;
-    context.PRODUCTION = branchEntry.production;
+    context.PRODUCTION = branchEntry.production === "true";
   }
   context.ALIAS_DOMAINS;
 };
