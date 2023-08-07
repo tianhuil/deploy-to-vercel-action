@@ -18509,162 +18509,203 @@ function wrappy (fn, cb) {
 /***/ 9439:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
-const core = __nccwpck_require__(7733)
-const github = __nccwpck_require__(5554)
-const parser = __nccwpck_require__(3687)
-__nccwpck_require__(7901).config()
+const core = __nccwpck_require__(7733);
+const github = __nccwpck_require__(5554);
+const parser = __nccwpck_require__(3687);
+(__nccwpck_require__(7901).config)();
 
-const IS_PR = [ 'pull_request', 'pull_request_target' ].includes(github.context.eventName)
+const IS_PR = ["pull_request", "pull_request_target"].includes(
+  github.context.eventName
+);
 
 const context = {
-	GITHUB_TOKEN: parser.getInput({
-		key: [ 'GH_PAT', 'GITHUB_TOKEN' ],
-		required: true
-	}),
-	VERCEL_TOKEN: parser.getInput({
-		key: 'VERCEL_TOKEN',
-		required: true
-	}),
-	VERCEL_ORG_ID: parser.getInput({
-		key: 'VERCEL_ORG_ID',
-		required: true
-	}),
-	VERCEL_PROJECT_ID: parser.getInput({
-		key: 'VERCEL_PROJECT_ID',
-		required: true
-	}),
-	PRODUCTION: parser.getInput({
-		key: 'PRODUCTION',
-		type: 'boolean',
-		default: !IS_PR
-	}),
-	GITHUB_DEPLOYMENT: parser.getInput({
-		key: 'GITHUB_DEPLOYMENT',
-		type: 'boolean',
-		default: true
-	}),
-	CREATE_COMMENT: parser.getInput({
-		key: 'CREATE_COMMENT',
-		type: 'boolean',
-		default: true
-	}),
-	DELETE_EXISTING_COMMENT: parser.getInput({
-		key: 'DELETE_EXISTING_COMMENT',
-		type: 'boolean',
-		default: true
-	}),
-	ATTACH_COMMIT_METADATA: parser.getInput({
-		key: 'ATTACH_COMMIT_METADATA',
-		type: 'boolean',
-		default: true
-	}),
-	DEPLOY_PR_FROM_FORK: parser.getInput({
-		key: 'DEPLOY_PR_FROM_FORK',
-		type: 'boolean',
-		default: false
-	}),
-	PR_LABELS: parser.getInput({
-		key: 'PR_LABELS',
-		default: [ 'deployed' ],
-		type: 'array',
-		disableable: true
-	}),
-	ALIAS_DOMAINS: parser.getInput({
-		key: 'ALIAS_DOMAINS',
-		type: 'array',
-		disableable: true
-	}),
-	PR_PREVIEW_DOMAIN: parser.getInput({
-		key: 'PR_PREVIEW_DOMAIN'
-	}),
-	VERCEL_SCOPE: parser.getInput({
-		key: 'VERCEL_SCOPE'
-	}),
-	GITHUB_REPOSITORY: parser.getInput({
-		key: 'GITHUB_REPOSITORY',
-		required: true
-	}),
-	GITHUB_DEPLOYMENT_ENV: parser.getInput({
-		key: 'GITHUB_DEPLOYMENT_ENV'
-	}),
-	TRIM_COMMIT_MESSAGE: parser.getInput({
-		key: 'TRIM_COMMIT_MESSAGE',
-		type: 'boolean',
-		default: false
-	}),
-	WORKING_DIRECTORY: parser.getInput({
-		key: 'WORKING_DIRECTORY'
-	}),
-	BUILD_ENV: parser.getInput({
-		key: 'BUILD_ENV',
-		type: 'array'
-	}),
-	PREBUILT: parser.getInput({
-		key: 'PREBUILT',
-		type: 'boolean',
-		default: false
-	}),
-	RUNNING_LOCAL: process.env.RUNNING_LOCAL === 'true',
-	FORCE: parser.getInput({
-		key: 'FORCE',
-		type: 'boolean',
-		default: false
-	})
-}
+  GITHUB_TOKEN: parser.getInput({
+    key: ["GH_PAT", "GITHUB_TOKEN"],
+    required: true,
+  }),
+  VERCEL_TOKEN: parser.getInput({
+    key: "VERCEL_TOKEN",
+    required: true,
+  }),
+  VERCEL_ORG_ID: parser.getInput({
+    key: "VERCEL_ORG_ID",
+    required: true,
+  }),
+  VERCEL_PROJECT_ID: parser.getInput({
+    key: "VERCEL_PROJECT_ID",
+    required: true,
+  }),
+  PRODUCTION: parser.getInput({
+    key: "PRODUCTION",
+    type: "boolean",
+    default: !IS_PR,
+  }),
+  GITHUB_DEPLOYMENT: parser.getInput({
+    key: "GITHUB_DEPLOYMENT",
+    type: "boolean",
+    default: true,
+  }),
+  CREATE_COMMENT: parser.getInput({
+    key: "CREATE_COMMENT",
+    type: "boolean",
+    default: true,
+  }),
+  DELETE_EXISTING_COMMENT: parser.getInput({
+    key: "DELETE_EXISTING_COMMENT",
+    type: "boolean",
+    default: true,
+  }),
+  ATTACH_COMMIT_METADATA: parser.getInput({
+    key: "ATTACH_COMMIT_METADATA",
+    type: "boolean",
+    default: true,
+  }),
+  DEPLOY_PR_FROM_FORK: parser.getInput({
+    key: "DEPLOY_PR_FROM_FORK",
+    type: "boolean",
+    default: false,
+  }),
+  PR_LABELS: parser.getInput({
+    key: "PR_LABELS",
+    default: ["deployed"],
+    type: "array",
+    disableable: true,
+  }),
+  ALIAS_DOMAINS: parser.getInput({
+    key: "ALIAS_DOMAINS",
+    type: "array",
+    disableable: true,
+  }),
+  PR_PREVIEW_DOMAIN: parser.getInput({
+    key: "PR_PREVIEW_DOMAIN",
+  }),
+  VERCEL_SCOPE: parser.getInput({
+    key: "VERCEL_SCOPE",
+  }),
+  GITHUB_REPOSITORY: parser.getInput({
+    key: "GITHUB_REPOSITORY",
+    required: true,
+  }),
+  GITHUB_DEPLOYMENT_ENV: parser.getInput({
+    key: "GITHUB_DEPLOYMENT_ENV",
+  }),
+  TRIM_COMMIT_MESSAGE: parser.getInput({
+    key: "TRIM_COMMIT_MESSAGE",
+    type: "boolean",
+    default: false,
+  }),
+  WORKING_DIRECTORY: parser.getInput({
+    key: "WORKING_DIRECTORY",
+  }),
+  BUILD_ENV: parser.getInput({
+    key: "BUILD_ENV",
+    type: "array",
+  }),
+  PREBUILT: parser.getInput({
+    key: "PREBUILT",
+    type: "boolean",
+    default: false,
+  }),
+  RUNNING_LOCAL: process.env.RUNNING_LOCAL === "true",
+  FORCE: parser.getInput({
+    key: "FORCE",
+    type: "boolean",
+    default: false,
+  }),
+
+  // Github actions do not support dictionaries. We have pass json strings
+  // https://github.com/argoproj/argo-workflows/issues/2077
+  PER_BRANCH_CONFIG: parser.getInput({
+    key: "PER_BRANCH_CONFIG",
+  }),
+};
 
 const setDynamicVars = () => {
-	context.USER = context.GITHUB_REPOSITORY.split('/')[0]
-	context.REPOSITORY = context.GITHUB_REPOSITORY.split('/')[1]
+  context.USER = context.GITHUB_REPOSITORY.split("/")[0];
+  context.REPOSITORY = context.GITHUB_REPOSITORY.split("/")[1];
 
-	// If running the action locally, use env vars instead of github.context
-	if (context.RUNNING_LOCAL) {
-		context.SHA = process.env.SHA || 'XXXXXXX'
-		context.IS_PR = process.env.IS_PR === 'true' || false
-		context.PR_NUMBER = process.env.PR_NUMBER || undefined
-		context.REF = process.env.REF || 'refs/heads/master'
-		context.BRANCH = process.env.BRANCH || 'master'
-		context.PRODUCTION = process.env.PRODUCTION === 'true' || !context.IS_PR
-		context.LOG_URL = process.env.LOG_URL || `https://github.com/${ context.USER }/${ context.REPOSITORY }`
-		context.ACTOR = process.env.ACTOR || context.USER
-		context.IS_FORK = process.env.IS_FORK === 'true' || false
-		context.TRIM_COMMIT_MESSAGE = process.env.TRIM_COMMIT_MESSAGE === 'true' || false
+  // If running the action locally, use env vars instead of github.context
+  if (context.RUNNING_LOCAL) {
+    context.SHA = process.env.SHA || "XXXXXXX";
+    context.IS_PR = process.env.IS_PR === "true" || false;
+    context.PR_NUMBER = process.env.PR_NUMBER || undefined;
+    context.REF = process.env.REF || "refs/heads/master";
+    context.BRANCH = process.env.BRANCH || "master";
+    context.PRODUCTION = process.env.PRODUCTION === "true" || !context.IS_PR;
+    context.LOG_URL =
+      process.env.LOG_URL ||
+      `https://github.com/${context.USER}/${context.REPOSITORY}`;
+    context.ACTOR = process.env.ACTOR || context.USER;
+    context.IS_FORK = process.env.IS_FORK === "true" || false;
+    context.TRIM_COMMIT_MESSAGE =
+      process.env.TRIM_COMMIT_MESSAGE === "true" || false;
 
-		return
-	}
+    return;
+  }
 
-	context.IS_PR = IS_PR
-	context.LOG_URL = `https://github.com/${ context.USER }/${ context.REPOSITORY }/actions/runs/${ process.env.GITHUB_RUN_ID }`
+  context.IS_PR = IS_PR;
+  context.LOG_URL = `https://github.com/${context.USER}/${context.REPOSITORY}/actions/runs/${process.env.GITHUB_RUN_ID}`;
 
-	// Use different values depending on if the Action was triggered by a PR
-	if (context.IS_PR) {
-		context.PR_NUMBER = github.context.payload.number
-		context.ACTOR = github.context.payload.pull_request.user.login
-		context.REF = github.context.payload.pull_request.head.ref
-		context.SHA = github.context.payload.pull_request.head.sha
-		context.BRANCH = github.context.payload.pull_request.head.ref
-		context.IS_FORK = github.context.payload.pull_request.head.repo.full_name !== context.GITHUB_REPOSITORY
-	} else {
-		context.ACTOR = github.context.actor
-		context.REF = github.context.ref
-		context.SHA = github.context.sha
-		context.BRANCH = github.context.ref.substr(11)
-	}
-}
+  // Use different values depending on if the Action was triggered by a PR
+  if (context.IS_PR) {
+    context.PR_NUMBER = github.context.payload.number;
+    context.ACTOR = github.context.payload.pull_request.user.login;
+    context.REF = github.context.payload.pull_request.head.ref;
+    context.SHA = github.context.payload.pull_request.head.sha;
+    context.BRANCH = github.context.payload.pull_request.head.ref;
+    context.IS_FORK =
+      github.context.payload.pull_request.head.repo.full_name !==
+      context.GITHUB_REPOSITORY;
+  } else {
+    context.ACTOR = github.context.actor;
+    context.REF = github.context.ref;
+    context.SHA = github.context.sha;
+    context.BRANCH = github.context.ref.substr(11);
+  }
+};
 
-setDynamicVars()
+const parseJsonAliasesDict = () => {
+  try {
+    return JSON.parse(context.PER_BRANCH_CONFIG);
+  } catch (err) {
+    core.setFailed("PER_BRANCH_CONFIG is not a valid JSON string");
+    throw err;
+  }
+};
 
-core.setSecret(context.GITHUB_TOKEN)
-core.setSecret(context.VERCEL_TOKEN)
+const usePerBranchConfig = () => {
+  if (context.PER_BRANCH_CONFIG) {
+    /**
+     * @typedef {{aliases: string[], production: boolean}} BranchEntry
+     */
+    /** @type Object.<string, BranchEntry> */
+    const dict = parseJsonAliasesDict();
+    core.info(`Using per-branch config for branch ${context.BRANCH}`);
 
-core.debug(
-	JSON.stringify(
-		context,
-		null,
-		2
-	)
-)
+    const branchEntry = dict[context.BRANCH];
+    if (!branchEntry) {
+      core.info(`No config found for branch ${context.BRANCH}`);
+      return;
+    }
 
-module.exports = context
+    core.info(JSON.stringify(branchEntry, null, 2));
+    context.ALIAS_DOMAINS = branchEntry.aliases;
+    context.PRODUCTION = branchEntry.production;
+  } else {
+    // using this to know if this is working
+    core.warn("No PER_BRANCH_CONFIG found");
+  }
+};
+
+setDynamicVars();
+usePerBranchConfig();
+
+core.setSecret(context.GITHUB_TOKEN);
+core.setSecret(context.VERCEL_TOKEN);
+
+core.debug(JSON.stringify(context, null, 2));
+
+module.exports = context;
 
 
 /***/ }),
@@ -18858,125 +18899,139 @@ module.exports = {
 /***/ 5525:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
-const core = __nccwpck_require__(7733)
-const got = __nccwpck_require__(6914)
-const { exec, removeSchema } = __nccwpck_require__(5067)
+const core = __nccwpck_require__(7733);
+const got = __nccwpck_require__(6914);
+const { exec, removeSchema } = __nccwpck_require__(5067);
 
 const {
-	VERCEL_TOKEN,
-	PRODUCTION,
-	VERCEL_SCOPE,
-	VERCEL_ORG_ID,
-	VERCEL_PROJECT_ID,
-	SHA,
-	USER,
-	REPOSITORY,
-	REF,
-	TRIM_COMMIT_MESSAGE,
-	BUILD_ENV,
-	PREBUILT,
-	WORKING_DIRECTORY,
-	FORCE
-} = __nccwpck_require__(9439)
+  VERCEL_TOKEN,
+  PRODUCTION,
+  VERCEL_SCOPE,
+  VERCEL_ORG_ID,
+  VERCEL_PROJECT_ID,
+  SHA,
+  USER,
+  REPOSITORY,
+  REF,
+  BRANCH,
+  TRIM_COMMIT_MESSAGE,
+  BUILD_ENV,
+  PREBUILT,
+  WORKING_DIRECTORY,
+  FORCE,
+} = __nccwpck_require__(9439);
 
 const init = () => {
-	core.info('Setting environment variables for Vercel CLI')
-	core.exportVariable('VERCEL_ORG_ID', VERCEL_ORG_ID)
-	core.exportVariable('VERCEL_PROJECT_ID', VERCEL_PROJECT_ID)
+  core.info(JSON.stringify({ REF, BRANCH, WORKING_DIRECTORY }, null, 2));
 
-	let deploymentUrl
+  core.info("Setting environment variables for Vercel CLI");
+  core.exportVariable("VERCEL_ORG_ID", VERCEL_ORG_ID);
+  core.exportVariable("VERCEL_PROJECT_ID", VERCEL_PROJECT_ID);
 
-	const deploy = async (commit) => {
-		let commandArguments = [ `--token=${ VERCEL_TOKEN }` ]
+  let deploymentUrl;
 
-		if (VERCEL_SCOPE) {
-			commandArguments.push(`--scope=${ VERCEL_SCOPE }`)
-		}
+  const deploy = async (commit) => {
+    let commandArguments = [`--token=${VERCEL_TOKEN}`];
 
-		if (PRODUCTION) {
-			commandArguments.push('--prod')
-		}
+    if (VERCEL_SCOPE) {
+      commandArguments.push(`--scope=${VERCEL_SCOPE}`);
+    }
 
-		if (PREBUILT) {
-			commandArguments.push('--prebuilt')
-		}
+    if (PRODUCTION) {
+      commandArguments.push("--prod");
+    }
 
-		if (FORCE) {
-			commandArguments.push('--force')
-		}
+    if (PREBUILT) {
+      commandArguments.push("--prebuilt");
+    }
 
-		if (commit) {
-			const metadata = [
-				`githubCommitAuthorName=${ commit.authorName }`,
-				`githubCommitAuthorLogin=${ commit.authorLogin }`,
-				`githubCommitMessage=${ TRIM_COMMIT_MESSAGE ? commit.commitMessage.split(/\r?\n/)[0] : commit.commitMessage }`,
-				`githubCommitOrg=${ USER }`,
-				`githubCommitRepo=${ REPOSITORY }`,
-				`githubCommitRef=${ REF }`,
-				`githubCommitSha=${ SHA }`,
-				`githubOrg=${ USER }`,
-				`githubRepo=${ REPOSITORY }`,
-				`githubDeployment=1`
-			]
+    if (FORCE) {
+      commandArguments.push("--force");
+    }
 
-			metadata.forEach((item) => {
-				commandArguments = commandArguments.concat([ '--meta', item ])
-			})
-		}
+    if (commit) {
+      const metadata = [
+        `githubCommitAuthorName=${commit.authorName}`,
+        `githubCommitAuthorLogin=${commit.authorLogin}`,
+        `githubCommitMessage=${
+          TRIM_COMMIT_MESSAGE
+            ? commit.commitMessage.split(/\r?\n/)[0]
+            : commit.commitMessage
+        }`,
+        `githubCommitOrg=${USER}`,
+        `githubCommitRepo=${REPOSITORY}`,
+        `githubCommitRef=${BRANCH}`,
+        `githubCommitSha=${SHA}`,
+        `githubOrg=${USER}`,
+        `githubRepo=${REPOSITORY}`,
+        `githubDeployment=1`,
+      ];
 
-		if (BUILD_ENV) {
-			BUILD_ENV.forEach((item) => {
-				commandArguments = commandArguments.concat([ '--build-env', item ])
-			})
-		}
+      metadata.forEach((item) => {
+        commandArguments = commandArguments.concat(["--meta", item]);
+      });
+    }
 
-		core.info('Starting deploy with Vercel CLI')
-		const output = await exec('vercel', commandArguments, WORKING_DIRECTORY)
-		const parsed = output.match(/(?<=https?:\/\/)(.*)/g)[0]
+    if (BUILD_ENV) {
+      BUILD_ENV.forEach((item) => {
+        commandArguments = commandArguments.concat(["--build-env", item]);
+      });
+    }
 
-		if (!parsed) throw new Error('Could not parse deploymentUrl')
+    core.info("Starting deploy with Vercel CLI");
+    const output = await exec("vercel", commandArguments, WORKING_DIRECTORY);
+    const parsed = output.match(/(?<=https?:\/\/)(.*)/g)[0];
 
-		deploymentUrl = parsed
+    if (!parsed) throw new Error("Could not parse deploymentUrl");
 
-		return deploymentUrl
-	}
+    deploymentUrl = parsed;
 
-	const assignAlias = async (aliasUrl) => {
-		const commandArguments = [ `--token=${ VERCEL_TOKEN }`, 'alias', 'set', deploymentUrl, removeSchema(aliasUrl) ]
+    return deploymentUrl;
+  };
 
-		if (VERCEL_SCOPE) {
-			commandArguments.push(`--scope=${ VERCEL_SCOPE }`)
-		}
+  const assignAlias = async (aliasUrl) => {
+    const commandArguments = [
+      `--token=${VERCEL_TOKEN}`,
+      "alias",
+      "set",
+      deploymentUrl,
+      removeSchema(aliasUrl),
+    ];
 
-		const output = await exec('vercel', commandArguments, WORKING_DIRECTORY)
+    if (VERCEL_SCOPE) {
+      commandArguments.push(`--scope=${VERCEL_SCOPE}`);
+    }
 
-		return output
-	}
+    const output = await exec("vercel", commandArguments, WORKING_DIRECTORY);
 
-	const getDeployment = async () => {
-		const url = `https://api.vercel.com/v11/now/deployments/get?url=${ deploymentUrl }`
-		const options = {
-			headers: {
-				Authorization: `Bearer ${ VERCEL_TOKEN }`
-			}
-		}
+    return output;
+  };
 
-		const res = await got(url, options).json()
+  const getDeployment = async () => {
+    const url = `https://api.vercel.com/v11/now/deployments/get?url=${deploymentUrl}`;
+    const options = {
+      headers: {
+        Authorization: `Bearer ${VERCEL_TOKEN}`,
+      },
+    };
 
-		return res
-	}
+    const res = await got(url, options).json();
 
-	return {
-		deploy,
-		assignAlias,
-		deploymentUrl,
-		getDeployment
-	}
-}
+    return res;
+  };
+
+  return {
+    deploy,
+    assignAlias,
+    deploymentUrl,
+    getDeployment,
+  };
+};
 
 module.exports = {
-	init
-}
+  init,
+};
+
 
 /***/ }),
 
