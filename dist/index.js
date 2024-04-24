@@ -18836,7 +18836,8 @@ const execCmd = (command, args, cwd) => {
 		})
 
 		process.on('close', (code) => {
-			code !== 0 ? reject(new Error(stderr)) : resolve(stdout.trim())
+			const output = stdout === undefined ? '' : stdout
+			code !== 0 ? reject(new Error(stderr)) : resolve(output.trim())
 		})
 	})
 }
